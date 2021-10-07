@@ -1,6 +1,7 @@
 # Topic-modelling
 A topic modelling on Augustine homilies, in particular those who have been reused by Caesarius, using R.
 
+```ruby
 library("stm")
 library("readr")
 data=read_csv("OUTPUT-FILE.csv")
@@ -36,3 +37,4 @@ plot(Content, type = "summary", xlim = c(0, 0.3))
 plot(Content, type = "perspectives", topics = 10)
 plot(Content, type = "perspectives", topics = c(16, 18))
 cloud(Content, topic = 13, scale = c(2, 0.25))
+```
