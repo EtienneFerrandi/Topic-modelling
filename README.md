@@ -1,5 +1,6 @@
 # Topic-modelling
 A topic modelling on Augustine homilies, in particular those who have been reused by Caesarius, using R.
+The studied sermons correspond to the rows of the .csv file. They all belong to _Quinquaginta_ collection. The different traditions of one sermon has been digitally edited according to the apparatus in the modern editions. The versions whose name starts by an "A" are from Augustine (for example, A_AU_s_142_DVD) and those by a "C" are from Caesarius (for example, C_AU_s_142Q). In this example, "DVD" means the _De Verbis Domini_ collection and Q the _Quinquaginta_ collection.
 
 ```ruby
 library("stm")
