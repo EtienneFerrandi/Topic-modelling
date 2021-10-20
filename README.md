@@ -26,9 +26,6 @@ Select <- selectModel(out$documents, out$vocab, K = 20,
                                 prevalence =~ Auteur, max.em.its = 75, data = out$meta,
                                 runs = 20, seed = 8458159)
 
-Models(poliblogSelect, pch = c(1, 2, 3, 4),
-             legend.position = "bottomright")
-
 
 Content <- stm(out$documents, out$vocab, K = 20,
                        prevalence =~ Auteur, content =~ Auteur,
