@@ -36,12 +36,21 @@ Content <- stm(out$documents, out$vocab, K = 20,
                        prevalence =~ Auteur, content =~ Auteur,
                        max.em.its = 75, data = meta, init.type = "LDA")
 
-#ensemble des topics du corpus
-plot(Content, type = "summary", xlim = c(0, 0.3))
-#pour le topic 10, lequel est plus présent chez Césaire ou chez Augustin
-plot(Content, type = "perspectives", topics = 10)
-#pour les topics 16 et 18, comparaison de leur présence effective chez Césaire ou chez Augustin 
-plot(Content, type = "perspectives", topics = c(16, 18))
-#nuage de mots du corpus pour le topic 13
+#pour les topics 1,7,20, identification de leurs mots les plus représentatifs, de leurs mots covariables 
+#en fonction des auteurs (Augustin ou Césaire), des covariables d'interaction entre les topics
+labelTopics(Content, c(1, 7, 20), frexweight = 0.5)
+plot.STM(Content, type = "labels", topics = c(1,7,20))
+
+#graphique affichant les mots des topics et leur fréquence dans le corpus
+plot.STM(Content, type = "summary", xlim = c(0, 0.3))
+#affichage de mots du topic 2 qui sont plus associés à un auteur qu'à un autre
+labelTopics(Content, c(2), frexweight = 0.5)
+plot.STM(Content, type = "perspectives", topics = 2)
+#calcul de la différence de probabilité d'un mot pour les topics 16 et 18, 
+#normalisée par la différence maximale de probabilité chez Augustin ou chez Césaire 
+#de n'importe quel mot entre les deux topics
+labelTopics(Content, c(16,18), frexweight = 0.5)
+plot.STM(Content, type = "perspectives", topics = c(16, 18))
+#nuage de mots du topic 13 relativement à la fréquence d'apparition de ses mots dans le corpus
 cloud(Content, topic = 13, scale = c(2, 0.25))
 ```
