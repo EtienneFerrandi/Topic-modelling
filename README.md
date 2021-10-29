@@ -6,7 +6,7 @@ The studied sermons correspond to the rows of the .csv file. They all belong to 
 library("stm")
 library("readr")
 data=read_csv("OUTPUT-FILE.csv")
-processed <- textProcessor(data$texts, metadata = data, language = "latin")
+processed <- textProcessor(data$texts, metadata = data)
 
 out <- prepDocuments(processed$documents, processed$vocab,
                      processed$meta)
@@ -22,14 +22,11 @@ docs <- out$documents
 vocab <- out$vocab
 meta <- out$meta
 
-levels(meta$rating)
-
 #Première étape de l'EM : estimation du Structural Topic Model d'après une méthode 
 #d'espérance-maximisation (EM) variationnelle non conjuguée.
 #K est est le nombre désiré de topics (20)
 #méthode utilisée : Latent Dirichlet Alocation (LDA)
 #nombre d'itérations EM fixé à 75
-
 PrevFit <- stm(documents = out$documents, vocab = out$vocab,
                          K = 20, prevalence =~ Auteur, max.em.its = 75,
                          data = meta, init.type = "LDA")
@@ -42,9 +39,9 @@ Content <- stm(out$documents, out$vocab, K = 20,
 #ensemble des topics du corpus
 plot(Content, type = "summary", xlim = c(0, 0.3))
 #pour le topic 10, lequel est plus présent chez Césaire ou chez Augustin
-plot(PrevFit, type = "perspectives", topics = 10)
+plot(Content, type = "perspectives", topics = 10)
 #pour les topics 16 et 18, comparaison de leur présence effective chez Césaire ou chez Augustin 
-plot(PrevFit, type = "perspectives", topics = c(16, 18))
+plot(Content, type = "perspectives", topics = c(16, 18))
 #nuage de mots du corpus pour le topic 13
-cloud(PrevFit, topic = 13, scale = c(2, 0.25))
+cloud(Content, topic = 13, scale = c(2, 0.25))
 ```
